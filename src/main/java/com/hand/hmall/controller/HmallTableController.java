@@ -28,6 +28,12 @@ public class HmallTableController {
     public List<HmallTable> radisItems(Map<String,Object> map){
 //        List<HmallTable> hmallTables = hmallTableService.selectAll();
         List<HmallTable> radisItems = hmallTableService.selectRadisItems(map);
+//        String
+//        if()
         return radisItems;
+    }
+    @RequestMapping(value = "/hmallTable" , method = RequestMethod.GET)
+    public String hmallTable(){
+        return "hmallTable";
     }
 }
