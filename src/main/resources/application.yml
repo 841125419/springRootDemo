@@ -1,0 +1,28 @@
+server:
+    contextPath: /
+    port: 8083
+########################################################
+###THYMELEAF (ThymeleafAutoConfiguration)
+########################################################
+#spring.thymeleaf.prefix=classpath:/templates/
+#spring.thymeleaf.suffix=.html
+#spring.thymeleaf.mode=HTML5
+#spring.thymeleaf.encoding=UTF-8
+# ;charset=<encoding> is added
+#spring.thymeleaf.content-type=text/html
+# set to false for hot refresh
+spring:
+    thymeleaf:
+        cache: false
+    application:
+        name: oracleDb
+    profiles:
+        active: native
+    datasource:
+        driverClassName: oracle.jdbc.OracleDriver
+        #url: jdbc:oracle:thin:@172.20.1.19:1521:XE
+        url: jdbc:oracle:thin:@localhost:1521:MYTEST
+        username: root
+        password: root
+data:
+    serverType: oracle
