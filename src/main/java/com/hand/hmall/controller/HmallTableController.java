@@ -23,6 +23,7 @@ import java.util.Map;
  * @create 2017-06-12 15:27
  **/
 @Controller
+@RequestMapping(value = "/hmallTable")
 public class HmallTableController {
 
     @Autowired
@@ -39,6 +40,7 @@ public class HmallTableController {
         }
         return radisItems;
     }
+
     @RequestMapping(value = "/query" , method = RequestMethod.POST)
     @ResponseBody
     public List<HmallTable> query(Map<String,Object> map){
@@ -46,9 +48,10 @@ public class HmallTableController {
         List<HmallTable> hmallTables = hmallTableService.selectRadisItems(map);
         return hmallTables;
     }
+
     @RequestMapping(value = "/hmallTable" , method = RequestMethod.GET)
     public String hmallTable(){
-        return "hmallTable";
+        return "hmallTable1";
     }
 
     @RequestMapping(value = "/queryParam" , method = RequestMethod.POST)

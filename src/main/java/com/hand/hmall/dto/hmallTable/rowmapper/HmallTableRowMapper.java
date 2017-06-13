@@ -19,15 +19,15 @@ public class HmallTableRowMapper implements RowMapper{
 
     @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-        HmallTable hmallTable = new HmallTable();
-        hmallTable.setTableId(rs.getInt("table_id"));
-        hmallTable.setRedisName(rs.getString("redis_name"));
-        hmallTable.setOracleName(rs.getString("oracle_name"));
-        hmallTable.setRefService(rs.getString("ref_service"));
-        hmallTable.setTableName(rs.getString("table_name"));
-        hmallTable.setTableDesc(rs.getString("table_desc"));
-        hmallTable.setComments(rs.getString("comments"));
-        hmallTable.setTableType(rs.getString("table_type"));
-        return hmallTable;
+        HmallTable o = new HmallTable();
+        o.setTableId(rs.getInt("table_id"));
+        o.setRedisName(rs.getString("redis_name"));
+        o.setOracleName(rs.getString("oracle_name"));
+        o.setRefService(rs.getString("ref_service"));
+        o.setTableName(rs.getString("table_name"));
+        o.setTableDesc(rs.getString("table_desc"));
+        o.setComments(rs.getString("comments"));
+        o.setTableType(rs.getString("table_type"));
+        return o;
     }
 }
