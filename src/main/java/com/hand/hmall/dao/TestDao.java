@@ -6,7 +6,6 @@ import com.hand.hmall.base.dao.BaseDao;
 import com.hand.hmall.base.dto.BaseDto;
 import com.hand.hmall.dto.Test;
 import com.hand.hmall.dto.common.PageDto;
-import com.hand.hmall.util.PageUtil;
 import com.hand.hmall.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

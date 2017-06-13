@@ -7,7 +7,6 @@ import com.hand.hmall.dto.Test;
 import com.hand.hmall.dto.common.PageDto;
 import com.hand.hmall.dto.common.QueryDto;
 import com.hand.hmall.service.ITestService;
-import com.hand.hmall.util.PageUtil;
 import com.hand.hmall.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.hand.hmall.dto.hmallTable.rowmapper;/**
+package com.hand.hmall.dto.hmallTable;/**
  * Created by Administrator on 2017/6/12.
  */
 
@@ -11,6 +11,13 @@ public class HmallTableTree {
     private String redisName;
     private String parentId;
     private boolean hasChild;
+
+    public HmallTableTree(String tableId, String redisName, String parentId, boolean hasChild) {
+        this.tableId = tableId;
+        this.redisName = redisName;
+        this.parentId = parentId;
+        this.hasChild = hasChild;
+    }
 
     public String getTableId() {
         return tableId;

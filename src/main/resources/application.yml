@@ -13,6 +13,11 @@ server:
 # set to false for hot refresh
 spring:
     thymeleaf:
+        prefix: classpath:/templates/
+        suffix: .html
+        mode: HTML5
+        encoding: UTF-8
+        content-type: text/html
         cache: false
     application:
         name: oracleDb

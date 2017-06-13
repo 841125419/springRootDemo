@@ -19,6 +19,9 @@ import java.util.List;
 public class HmallTableDao extends BaseDao<HmallTable>{
 
     private RowMapper<HmallTable> rowMapper = new HmallTableRowMapper();
+    public HmallTableDao() {
+        prepare();
+    }
     @Override
     public void prepare() {
         setTable("hmall_table");

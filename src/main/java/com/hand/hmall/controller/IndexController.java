@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class IndexController {
-    @RequestMapping("/index")
+    @RequestMapping(value = "/")
     public String index(ModelMap map){
         map.addAttribute("host","www.jianshu.com");
         return "index";

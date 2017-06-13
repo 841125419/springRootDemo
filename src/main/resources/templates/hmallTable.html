@@ -8,7 +8,7 @@
     <title>hmallTable</title>
 
 
-    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-1.12.3.js"></script>
     <script src="/js/angular.min.js"></script>
     <script src="/js/jszip.min.js"></script>
     <script src="/js/kendo.all.min.js"></script>
@@ -16,17 +16,40 @@
     <link rel="stylesheet" href="/styles/kendo.common.min.css"/>
     <link rel="stylesheet" href="/styles/kendo.rtl.min.css"/>
     <link rel="stylesheet" href="/styles/kendo.default.min.css"/>
+    <link rel="stylesheet" href="/styles/kendo.silver.min.css"/>
     <link rel="stylesheet" href="/styles/kendo.mobile.all.min.css"/>
 </head>
     <body>
     <div id="splitter">
-        <div>Pane A</div>
-        <div>Pane B</div>
+        <div>Pane A1<div id="treeview"></div></div>
+        <div>
+            <div class="pane-content">
+                <div id="dialogEdit" style="display: none"></div>
+                <div id="page-content">
+                    <div class="pull-left" id="toolbar-btn" style="padding-bottom:10px;">
+                        <i id="noti"></i>
+                        <span class="btn btn-primary" style="float:left;margin-right:5px;"  data-bind="click:createFunction"><i class="fa fa-plus-square" style="margin-right:3px;"></i>新建</span>
+                        <span class="btn btn-primary" style="float:left;margin-right:5px;"  onclick="editFunctionResources()"><i class="fa fa-edit" style="margin-right:3px;"></i>修改</span>
+                        <span class="btn btn-success k-grid-save-changes" style="float:left;margin-right:5px;" data-bind="click:saveFunction"><i class="fa fa-save" style="margin-right:3px;"></i>保存</span>
+                        <span onclick="deleteData()" class="btn btn-danger" style="float:left;"><i class="fa fa-trash-o" style="margin-right:3px;"></i>删除</span>
+                    </div>
+                    <div class="pull-right" id="query-form" style="padding-bottom:10px;">
+                        <input data-role="maskedtextbox" placeholder='key' type="text"
+                               style="width: 150px;float:left;margin-right:5px;" data-bind="value:model.key" class="k-textbox" />
+                        <span class="btn btn-primary" data-bind="click:queryResource" style="width: 80px;float:left;margin-right:5px;" type="submit"><i class="fa fa-search" style="margin-right:3px;"></i>查询</span>
+                        <div style="clear:both"></div>
+                    </div>
+                    <div style="clear: both;">
+                        <div id="grid"></div>
+                    </div>
+                </div>
+                <div id="editWin"></div>
+                <div id="newWin"></div>
+            </div>
+
+        </div>
     </div>
-        <script>
-            $("#splitter").kendoSplitter({
-                panes: [ { max: "100%" ,size: "200px",collapsible: false, collapsedSize: "10%"  }, {} ]
-            });
-        </script>
+
+    <script src="/js/hmallTable.js"></script>
     </body>
 </html>
