@@ -45,7 +45,6 @@ spring:
 
 
 
-
 data:
     serverType: oracle
 

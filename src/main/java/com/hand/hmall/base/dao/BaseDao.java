@@ -10,9 +10,12 @@ import com.sun.rowset.internal.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -97,6 +100,10 @@ public abstract class BaseDao<T> {
         this.table = table;
     }
 
+    public String getTable() {
+        return table;
+    }
+
     public void setSelectAllColumn(String selectAllColumn) {
         this.selectAllColumn = selectAllColumn;
     }
@@ -109,9 +116,50 @@ public abstract class BaseDao<T> {
         this.id = id;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
     }
 
+    public int add(String sql,PreparedStatementSetter preparedStatementSetter){
+        int resRow=jdbcTemplate.update(sql, preparedStatementSetter);
+        System.out.println("操作结果记录数：  " + resRow);
+        return resRow;
+    };
+
+    public int update(String sql, PreparedStatementSetter preparedStatementSetter){
+        int resRow=jdbcTemplate.update(sql, preparedStatementSetter);
+        System.out.println("操作结果记录数：  "+resRow);
+        return resRow;
+    };
+
+    public int delete(String sql, PreparedStatementSetter preparedStatementSetter) {
+        int resRow=jdbcTemplate.update(sql,preparedStatementSetter);
+        System.out.println("操作结果记录数：  "+resRow);
+        return resRow;
+    }
+
+//    public void batchUpdateLinkset(final List list) {
+//        19.        String sql = "update LINK_SET set N_CONFIRM=?,TIME_STAMP=?,DOMAIN_ID=?,SIGLINKSET_NAME=? where NE_ID=?";
+//        20.        jdbctemp.batchUpdate(sql, new BatchPreparedStatementSetter() {
+//21.            public int getBatchSize() {
+//                22.                return list.size();
+//                23.                //这个方法设定更新记录数，通常List里面存放的都是我们要更新的，所以返回list.size();
+//                24.            }
+//25.            public void setValues(PreparedStatement ps, int i)throws SQLException {
+//                26.                Linkset linkset = (Linkset) list.get(i);
+//                27.                ps.setString(1, linkset.getCHINA_NAME());
+//                28.                ps.setString(2, linkset.getENGLISH_NAME());
+//                29.                ps.setInt(3, linkset.getN_CONFIRM());
+//                30.                ps.setString(4, linkset.getTIME_STAMP());
+//                31.                ps.setInt(5, linkset.getDOMAIN_ID());
+//                32.                ps.setString(6, linkset.getSIGLINKSET_NAME());
+//                33.                ps.setString(7, linkset.getNE_ID());
+//                34.            }
+//35.        });
+//        36.    }
 
 }

@@ -32,8 +32,6 @@ public class TestController {
     @ResponseBody
     public PageDto queryAll(Map<String, Object> map){
         List<Map<String,Object>> list = testService.selectAll();
-        //PageDto p = new PageDto(list);
-//        new PageUtil().paging(list,page,pagepage);
 
         PageDto pageDto = testService.queryPage(map);
         return pageDto;

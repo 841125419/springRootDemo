@@ -3,16 +3,14 @@ package com.hand.hmall.controller;/**
  */
 
 import com.hand.hmall.dto.common.PageDto;
+import com.hand.hmall.dto.common.ResponseDto;
 import com.hand.hmall.dto.hmallTable.HmallTable;
 import com.hand.hmall.dto.hmallTable.HmallTableTree;
 import com.hand.hmall.service.IHmallTableService;
 import com.hand.hmall.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +41,7 @@ public class HmallTableController {
 
     @RequestMapping(value = "/query" , method = RequestMethod.POST)
     @ResponseBody
-    public List<HmallTable> query(Map<String,Object> map){
+    public List<HmallTable> query(@RequestParam Map<String,Object> map){
 
         List<HmallTable> hmallTables = hmallTableService.selectRadisItems(map);
         return hmallTables;
@@ -60,6 +58,26 @@ public class HmallTableController {
 
         PageDto pageDto = hmallTableService.queryPage(map);
         return pageDto;
+    }
+    @RequestMapping(value = "/create" , method = RequestMethod.POST)
+    @ResponseBody
+    public String create(@RequestParam Map<String,Object> map){
+        int row = hmallTableService.add(map);
+        return "success";
+    }
+
+    @RequestMapping(value = "/update" , method = RequestMethod.POST)
+    @ResponseBody
+    public String update(@RequestParam  Map<String,Object> map){
+        int row = hmallTableService.update(map);
+        return "success";
+    }
+
+    @RequestMapping(value = "/delete" , method = RequestMethod.POST)
+    @ResponseBody
+    public String delete(@RequestParam Map<String,Object> map){
+        int row = hmallTableService.delete(map);
+        return "success";
     }
 
 }

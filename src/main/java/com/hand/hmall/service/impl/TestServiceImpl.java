@@ -44,4 +44,19 @@ public class TestServiceImpl implements ITestService<Test> {
 
         return testDao.queryPage(map,conditions.toString());
     }
+
+    @Override
+    public int add(Map<String, Object> map) {
+        return 0;
+    }
+
+    @Override
+    public int update(Map<String, Object> map) {
+        return 0;
+    }
+
+    @Override
+    public int delete(Map<String, Object> map) {
+        return 0;
+    }
 }

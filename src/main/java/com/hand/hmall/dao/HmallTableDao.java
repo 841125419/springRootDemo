@@ -28,7 +28,7 @@ public class HmallTableDao extends BaseDao<HmallTable>{
         setSelectAllColumn("*");
         setSelectPageColumn("*");
         setId("table_id");
-        setOrderBy("table_id");
+        setOrderBy("redis_name");
         setRowMapper(rowMapper);
     }
 
