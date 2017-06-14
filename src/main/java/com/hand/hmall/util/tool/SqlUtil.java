@@ -20,12 +20,14 @@ public class SqlUtil {
             sql.append(updateColumn[i] + " = ?, ");
         }
         int lastIndex = sql.lastIndexOf(", ");
-        System.out.println(sql.delete(lastIndex,lastIndex+2));
+        sql.delete(lastIndex,lastIndex+2);
         sql.append(" where " + updateColumn[updateColumn.length -1] + " = ? ");
+        System.out.println(sql.toString());
         return sql.toString();
     }
 
     public static PreparedStatementSetter updatePstmtSetter(Map<String, Object> map, String[] updateColumnParam) {
+        System.out.println(map.toString());
         return (ps) ->{for(int i = 0; i<updateColumnParam.length; i++){
             ps.setObject(i+1, map.get(updateColumnParam[i]));
         }};
@@ -39,7 +41,7 @@ public class SqlUtil {
             sql.append(" " + column + ", ");
         }
         int lastIndex = sql.lastIndexOf(", ");
-        System.out.println(sql.delete(lastIndex,lastIndex+2));
+        sql.delete(lastIndex,lastIndex+2);
 
         sql.append(" ) values ( ");
 
@@ -51,19 +53,22 @@ public class SqlUtil {
             sql.append(" ?, ");
         }
         lastIndex = sql.lastIndexOf(", ");
-        System.out.println(sql.delete(lastIndex,lastIndex+2));
+        sql.delete(lastIndex,lastIndex+2);
         sql.append(" )");
+        System.out.println(sql.toString());
         return sql.toString();
     }
     public static PreparedStatementSetter insertPstmtSetter(Map<String, Object> map, String[] insertColumnParam) {
-
+        System.out.println(map.toString());
         return (ps) ->{for(int i = 1; i<insertColumnParam.length; i++){
             ps.setObject(i, map.get(insertColumnParam[i]));
         }};
     }
 
     public static String deletePstmt(String tableName, String id) {
-        return "DELETE FROM "+tableName+" WHERE " + id + " = ? ";
+        StringBuffer sql = new StringBuffer("DELETE FROM "+tableName+" WHERE " + id + " = ? ");
+        System.out.println(sql.toString());
+        return sql.toString();
     }
 
     public static PreparedStatementSetter deletePstmtSetter(Map<String, Object> map, String paramId) {

@@ -20,39 +20,39 @@ $(document).ready(function() {
             transport: {
                 read: {
                     url: "/hmallTable/queryParam",
-                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
                     type: "POST",
                     dataType: "json"
                 },
                 update: {
                     url: "/hmallTable/update",
-                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
                     type: "POST",
-                    dataType: "json"
+                    dataType: "json",
+                    complete: function(e) {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
                 },
                 destroy: {
                     url: "/hmallTable/delete",
-                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
                     type: "POST",
-                    dataType: "json"
+                    dataType: "json",
+                    complete: function(e) {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
                 },
                 create: {
                     url: "/hmallTable/create",
-                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
                     type: "POST",
-                    dataType: "json"
-                },
-                parameterMap: function(data, operation) {
-                    if (data.models) {
-                        return JSON.stringify({ products: data.models });
-                    } else if (operation == "read") {
-                        //Page methods always need values for their parameters
-
-                        data = $.extend({ sort: null, filter: null }, data);
-
-                        return JSON.stringify(data);
+                    dataType: "json",
+                    complete: function(e) {
+                        $("#grid").data("kendoGrid").dataSource.read();
                     }
                 }
+                // ,
+                // parameterMap: function(options, operation) {
+                //     if (operation !== "read" && options.models) {
+                //         return {models: kendo.stringify(options.models)};
+                //     }
+                // }
             },
             pageSize: 10,
             serverPaging: true,
@@ -114,7 +114,6 @@ $(document).ready(function() {
         ],
         editable: "inline"
     });
-    element.autoFitColumn(1);
 });
 
 function detailInit(e) {
@@ -123,39 +122,39 @@ function detailInit(e) {
             transport: {
                 read: {
                     url: "/hmallTableColumn/query",
-                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
                     type: "POST",
                     dataType: "json"
                 },
                 update: {
                     url: "/hmallTableColumn/update",
-                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
                     type: "POST",
-                    dataType: "json"
+                    dataType: "json",
+                    complete: function(e) {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
                 },
                 destroy: {
                     url: "/hmallTableColumn/delete",
-                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
                     type: "POST",
-                    dataType: "json"
+                    dataType: "json",
+                    complete: function(e) {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
                 },
                 create: {
                     url: "/hmallTableColumn/create",
-                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
                     type: "POST",
-                    dataType: "json"
-                },
-                parameterMap: function(data, operation) {
-                    if (data.models) {
-                        return JSON.stringify({ products: data.models });
-                    } else if (operation == "read") {
-                        //Page methods always need values for their parameters
-
-                        data = $.extend({ sort: null, filter: null }, data);
-
-                        return JSON.stringify(data);
+                    dataType: "json",
+                    complete: function(e) {
+                        $("#grid").data("kendoGrid").dataSource.read();
                     }
                 }
+                // ,
+                // parameterMap: function(options, operation) {
+                //     if (operation !== "read" && options.models) {
+                //         return {models: kendo.stringify(options.models)};
+                //     }
+                // }
             },
             serverPaging: true,
             serverSorting: true,
@@ -167,7 +166,6 @@ function detailInit(e) {
                 total: 'total',
                 model: {
                     id: "columnId",
-                    tableIdTemp:e.data.tableId,
                     fields: {
                         columnId: {type: "number",editable: false, nullable: true},
                         tableId: {type: "string"},
@@ -222,19 +220,7 @@ function detailInit(e) {
                     //console.log("Details for: " + data.name);
                 }}, "destroy"], title: "&nbsp;", width: "250px" }
         ],
-        editable: "inline",//popup 弹框  inline 框内编辑
-        edit: function (e) {
-            e.model.tableId = e.model.__proto__.tableIdTemp;
-            var editWindow = e.container.data("kendoWindow");
-            if(editWindow != undefined){
-                if (e.model.isNew()) {
-                    editWindow.title('新增');
-                }
-                else {
-                    editWindow.title('编辑');
-                }
-            }
-        }
+        editable: "inline"
     });
 }
 

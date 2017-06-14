@@ -119,6 +119,24 @@ $(document).ready(function() {
 function detailInit(e) {
     $("<div/>").appendTo(e.detailCell).kendoGrid({
         dataSource: {
+            requestEnd: function(e) {
+                var response = e.response;
+                if(response){
+                    var type = e.type;
+                    if(type !='read'){
+                        var status = response.status;
+                        if(status == 200){
+                            lert(response.message);
+                            this.read();
+                        } else {
+                            alert(response.message);
+                        }
+                    }
+                }else{
+                    alert("服务器异常，请重试！");
+                }
+
+            },
             transport: {
                 read: {
                     url: "/hmallTableColumn/query",
