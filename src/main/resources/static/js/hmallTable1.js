@@ -26,17 +26,26 @@ $(document).ready(function() {
                 update: {
                     url: "/hmallTable/update",
                     type: "POST",
-                    dataType: "json"
+                    dataType: "json",
+                    complete: function(e) {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
                 },
                 destroy: {
                     url: "/hmallTable/delete",
                     type: "POST",
-                    dataType: "json"
+                    dataType: "json",
+                    complete: function(e) {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
                 },
                 create: {
                     url: "/hmallTable/create",
                     type: "POST",
-                    dataType: "json"
+                    dataType: "json",
+                    complete: function(e) {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
                 }
                 // ,
                 // parameterMap: function(options, operation) {
@@ -119,17 +128,26 @@ function detailInit(e) {
                 update: {
                     url: "/hmallTableColumn/update",
                     type: "POST",
-                    dataType: "json"
+                    dataType: "json",
+                    complete: function(e) {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
                 },
                 destroy: {
                     url: "/hmallTableColumn/delete",
                     type: "POST",
-                    dataType: "json"
+                    dataType: "json",
+                    complete: function(e) {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
                 },
                 create: {
                     url: "/hmallTableColumn/create",
                     type: "POST",
-                    dataType: "json"
+                    dataType: "json",
+                    complete: function(e) {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
                 }
                 // ,
                 // parameterMap: function(options, operation) {

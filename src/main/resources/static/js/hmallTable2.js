@@ -1,38 +1,65 @@
-$(document).ready(function () {
-    var crudServiceBaseUrl = "",
-        htDataSource = new kendo.data.DataSource({
+/**
+ * Created by Administrator on 2017/6/13.
+ */
+$(document).ready(function() {
+    var viewModel = kendo.observable({
+        model: {},
+        createFunction: function(){
+            $('#grid').data('kendoGrid').addRow();
+        },
+        saveFunction: function () {
+            $('#grid').data('kendoGrid').saveChanges();
+        },
+        queryResource: function (e) {
+            $('#grid').data('kendoGrid').dataSource.page(1);
+        }
+    });
+
+    var element = $("#grid").kendoGrid({
+        dataSource: {
             transport: {
-                read:  {
-                    url: crudServiceBaseUrl + "/hmallTable/queryParam",
-                    dataType: "json",
-                    type: "post"
+                read: {
+                    url: "/hmallTable/queryParam",
+                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
+                    type: "POST",
+                    dataType: "json"
                 },
                 update: {
-                    url: crudServiceBaseUrl + "/hmallTable/update",
-                    dataType: "json",
-                    type: "post"
+                    url: "/hmallTable/update",
+                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
+                    type: "POST",
+                    dataType: "json"
                 },
                 destroy: {
-                    url: crudServiceBaseUrl + "/hmallTable/delete",
-                    dataType: "json",
-                    type: "post"
+                    url: "/hmallTable/delete",
+                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
+                    type: "POST",
+                    dataType: "json"
                 },
                 create: {
-                    url: crudServiceBaseUrl + "/hmallTable/create",
-                    dataType: "json",
-                    type: "post"
+                    url: "/hmallTable/create",
+                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
+                    type: "POST",
+                    dataType: "json"
                 },
-                parameterMap: function(options, operation) {
-                    if (operation !== "read" && options.models) {
-                        return kendo.stringify(options.models);
+                parameterMap: function(data, operation) {
+                    if (data.models) {
+                        return JSON.stringify({ products: data.models });
+                    } else if (operation == "read") {
+                        //Page methods always need values for their parameters
+
+                        data = $.extend({ sort: null, filter: null }, data);
+
+                        return JSON.stringify(data);
                     }
                 }
             },
-            batch: true,
-            pageSize: 20,
+            pageSize: 10,
+            serverPaging: true,
+            serverSorting: true,
             schema: {
-                data: "datas",
-                total: "total",
+                data: 'datas',
+                total: 'total',
                 model: {
                     id: "tableId",
                     fields: {
@@ -46,18 +73,31 @@ $(document).ready(function () {
                         tableType: {type: "string"}
                     }
                 }
-            },
-            error: function(e) {
-                alert(e.errors); // displays "Invalid query"
             }
-        });
-
-    $("#grid").kendoGrid({
-        dataSource: htDataSource,
-        pageable: true,
-        height: 550,
+        },
         toolbar: ["create"],
-        //detailInit: detailInit,
+        columnsautoresize: true,
+        columnsresize:true,
+        height: 600,
+        sortable: true,
+        pageable: {
+            pageSizes: true,
+            input: true,
+            buttonCount: 5,
+            messages: {
+                display: "显示{0}-{1}条，共{2}条",
+                empty: "没有数据",
+                page: "页",
+                of: "/ {0}",
+                itemsPerPage: "条/页",
+                first: "第一页",
+                previous: "前一页",
+                next: "下一页",
+                last: "最后一页",
+                refresh: "刷新"
+            }
+        },
+        detailInit: detailInit,
         dataBound: function() {
             this.expandRow(this.tbody.find("tr.k-master-row").first());
         },
@@ -70,7 +110,135 @@ $(document).ready(function () {
             { field: "tableDesc", width: "110px" },
             { field: "comments", width: "110px" },
             { field: "tableType", width: "110px" },
-            { command: ["edit", "destroy"], title: " ", width: "250px" }],
-        editable: "popup"
+            { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }
+        ],
+        editable: "inline"
     });
+    element.autoFitColumn(1);
 });
+
+function detailInit(e) {
+    $("<div/>").appendTo(e.detailCell).kendoGrid({
+        dataSource: {
+            transport: {
+                read: {
+                    url: "/hmallTableColumn/query",
+                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
+                    type: "POST",
+                    dataType: "json"
+                },
+                update: {
+                    url: "/hmallTableColumn/update",
+                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
+                    type: "POST",
+                    dataType: "json"
+                },
+                destroy: {
+                    url: "/hmallTableColumn/delete",
+                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
+                    type: "POST",
+                    dataType: "json"
+                },
+                create: {
+                    url: "/hmallTableColumn/create",
+                    contentType: "application/json; charset=utf-8", // tells the web method to serialize JSON
+                    type: "POST",
+                    dataType: "json"
+                },
+                parameterMap: function(data, operation) {
+                    if (data.models) {
+                        return JSON.stringify({ products: data.models });
+                    } else if (operation == "read") {
+                        //Page methods always need values for their parameters
+
+                        data = $.extend({ sort: null, filter: null }, data);
+
+                        return JSON.stringify(data);
+                    }
+                }
+            },
+            serverPaging: true,
+            serverSorting: true,
+            serverFiltering: true,
+            pageSize: 10,
+            filter: { field: "columnId", operator: "eq", value: e.data.tableId },
+            schema: {
+                data: 'datas',
+                total: 'total',
+                model: {
+                    id: "columnId",
+                    tableIdTemp:e.data.tableId,
+                    fields: {
+                        columnId: {type: "number",editable: false, nullable: true},
+                        tableId: {type: "string"},
+                        columnName: {type: "string"},
+                        columnType: {type: "string"},
+                        redisType: {type: "string"},
+                        keyFlag: {type: "string"},
+                        comments: {type: "string"}
+                    }
+                }
+            }
+        },
+        toolbar: ["create"],
+        columnsautoresize: true,
+        columnsresize:true,
+        scrollable: false,
+        sortable: true,
+        pageable: {
+            pageSizes: true,
+            input: true,
+            buttonCount: 5,
+            messages: {
+                display: "显示{0}-{1}条，共{2}条",
+                empty: "没有数据",
+                page: "页",
+                of: "/ {0}",
+                itemsPerPage: "条/页",
+                first: "第一页",
+                previous: "前一页",
+                next: "下一页",
+                last: "最后一页",
+                refresh: "刷新"
+            }
+        },
+        columns: [
+            { field: "columnId", width: "110px", hidden: false,},
+            { field: "tableId", title:"tableId", width: "110px", hidden: false,},
+            { field: "columnName", title:"columnName", width: "110px" },
+            { field: "columnType", title: "columnType", width: "110px" },
+            { field: "columnDesc", title: "columnDesc", width: "110px" },
+            { field: "redisType", title: "redisType", width: "110px" },
+            { field: "keyFlag", title: "keyFlag", width: "110px" },
+            { field: "comments", title: "comments", width: "110px" },
+            { command: [{name: "edit",
+                click: function(e) {
+                    // prevent page scroll position change
+                    e.preventDefault();
+                    // e.target is the DOM element representing the button
+                    var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                    // get the data bound to the current table row
+                    var data = this.dataItem(tr);
+                    //console.log("Details for: " + data.name);
+                }}, "destroy"], title: "&nbsp;", width: "250px" }
+        ],
+        editable: "inline",//popup 弹框  inline 框内编辑
+        edit: function (e) {
+            e.model.tableId = e.model.__proto__.tableIdTemp;
+            var editWindow = e.container.data("kendoWindow");
+            if(editWindow != undefined){
+                if (e.model.isNew()) {
+                    editWindow.title('新增');
+                }
+                else {
+                    editWindow.title('编辑');
+                }
+            }
+        }
+    });
+}
+
+function customBoolEditor(container, options) {
+    $('<input class="k-checkbox" type="checkbox" name="Discontinued" data-type="boolean" data-bind="checked:Discontinued">').appendTo(container);
+    $('<label class="k-checkbox-label">&#8203;</label>').appendTo(container);
+}

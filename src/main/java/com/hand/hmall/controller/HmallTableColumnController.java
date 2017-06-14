@@ -11,10 +11,7 @@ import com.hand.hmall.service.IHmallTableService;
 import com.hand.hmall.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +21,7 @@ import java.util.Map;
  * @author ChenMingjian
  * @create 2017-06-12 15:27
  **/
-@Controller
+@RestController
 @RequestMapping(value = "/hmallTableColumn")
 public class HmallTableColumnController {
 
