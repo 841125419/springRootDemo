@@ -59,7 +59,7 @@ public abstract class BaseDao<T> {
 
     public PageDto queryPage(Map<String, Object> map,String conditions) {
         PageDto pageDto = new PageDto();
-        QueryDto queryDto = new QueryDto(conditions,Util.check2Int(map.get("page"),1),Util.check2Int(map.get("pagesize"),10));
+        QueryDto queryDto = new QueryDto(conditions,Util.check2Int(map.get("page"),1),Util.check2Int(map.get("pageSize"),10));
 
         //查询条数
         int count =queryPageCount(conditions);
