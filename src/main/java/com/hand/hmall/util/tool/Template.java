@@ -72,6 +72,7 @@ public class Template<T> {
      * @return  map类型的多条信息
      */
     public List<Map<String,Object>> queryMany4Map(){
+        System.out.println(this.sql);
         return jdbcTemplate.queryForList(this.sql.toString());
     }
 
@@ -80,6 +81,7 @@ public class Template<T> {
      * @return entity类型的多条信息
      */
     public List<T> queryMany4Entity(RowMapper<T> rowMapper){
+        System.out.println(this.sql);
         return (List<T>)jdbcTemplate.query(this.sql.toString(),rowMapper);
     }
 
@@ -116,6 +118,7 @@ public class Template<T> {
                     "   ) b  " +
                     "where b.row_num between "+ start +" and " + end;
         }
+        System.out.println(pageSql);
         return jdbcTemplate.query(pageSql,rowMapper);
     }
 }

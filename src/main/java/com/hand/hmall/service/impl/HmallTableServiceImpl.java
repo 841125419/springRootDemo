@@ -37,10 +37,10 @@ public class HmallTableServiceImpl<T> implements IHmallTableService<HmallTable>{
     public PageDto queryPage(Map<String, Object> map) {
         StringBuffer conditions = new StringBuffer("");
 
-        Object key = map.get("key");
+        Object key = map.get("query_redisName");
 
-        if (!Util.isEmpty(map.get("key"))){
-            conditions.append("= '").append(key.toString()).append("' ");
+        if (!Util.isEmpty(map.get("query_redisName"))){
+            conditions.append("redis_name like '%").append(key.toString()).append("%' ");
         }
 
         return hmallTableDao.queryPage(map,conditions.toString());

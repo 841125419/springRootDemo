@@ -11,7 +11,7 @@ $('#vertical').kendoSplitter({
 });
 
 //回车事件
-$('#query-form input').keydown(function (e) {
+$('#oper-form').keydown(function (e) {
     if (e.keyCode == 13) {
         e.target.blur();
         viewModel.queryResource(e);
@@ -91,30 +91,30 @@ var mainDataSource = new kendo.data.DataSource({
             } else if (operation === "read") {
                 viewModel.model.page = options.page;
                 viewModel.model.pageSize = options.pageSize;
-                return kendo.stringify(viewModel.model);
+                return viewModel.model.toJSON();
             }
-            return kendo.stringify(options);
+            return JSON.parse(kendo.stringify(options));
         }
     },
     pageSize: 10,
     serverPaging: true,
-    serverSorting: true,
+    serverSorting: false,//false ： 浏览器排序生效  true ： 浏览器排序失效
     requestEnd: function(e) {
-        var response = e.response;
-        if(response){
-            var type = e.type;
-            if(type !='read'){
-                var status = response.status;
-                if(status == 200){
-                    lert(response.message);
-                    this.read();
-                } else {
-                    alert(response.message);
-                }
-            }
-        }else{
-            alert("服务器异常，请重试！");
-        }
+        // var response = e.response;
+        // if(response){
+        //     var type = e.type;
+        //     if(type !='read'){
+        //         var status = response.status;
+        //         if(status == 200){
+        //             lert(response.message);
+        //             this.read();
+        //         } else {
+        //             alert(response.message);
+        //         }
+        //     }
+        // }else{
+        //     alert("服务器异常，请重试！");
+        // }
 
     },
     schema: {
@@ -142,14 +142,18 @@ var mainGrid = $("#grid").kendoGrid({
     toolbar: kendo.template($("#template").html()),
     columnsautoresize: true,
     columnsresize:true,
-    height: 600,
+    columnMenu: true,
+    resizable: true,
+    filterable: true,
+    height: 650,
+    scrollable: true,
     sortable: true,
     batch: true,
     pageable: pageable,
     detailInit: detailInit,
-    dataBound: function() {
-        this.expandRow(this.tbody.find("tr.k-master-row").first());
-    },
+    // dataBound: function() {
+    //     this.expandRow(this.tbody.find("tr.k-master-row").first());
+    // },
     columns: [
         { field: "tableId", title: "tableId", width: "110px" },
         { field: "redisName", title: "redisName", width: "110px" },
@@ -159,7 +163,7 @@ var mainGrid = $("#grid").kendoGrid({
         { field: "tableDesc", width: "110px" },
         { field: "comments", width: "110px" },
         { field: "tableType", width: "110px" },
-        { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }
+        { command: ["edit", "destroy"], title: "&nbsp;", width: "170px" }
     ],
     editable: "inline"
 }).data("kendoGrid");
@@ -218,7 +222,7 @@ function detailInit(e) {
                 id: "columnId",
                 fields: {
                     columnId: {type: "number",editable: false, nullable: true},
-                    tableId: {type: "string"},
+                    tableId: {type: "string", validation: { required: true } },
                     columnName: {type: "string"},
                     columnType: {type: "string"},
                     redisType: {type: "string"},
@@ -235,8 +239,10 @@ function detailInit(e) {
         toolbar: [{name:"create",text:"新建"}],
         columnsautoresize: true,
         columnsresize:true,
+        columnMenu: true,
+        resizable: true,
         scrollable: false,
-        sortable: true,
+        // sortable: true,
         batch: true,
         pageable: pageable,
         columns: [

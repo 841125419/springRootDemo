@@ -49,7 +49,7 @@ public class HmallTableController {
 
     @RequestMapping(value = "/hmallTable" , method = RequestMethod.GET)
     public String hmallTable(){
-        return "hmallTable1";
+        return "hmallTable2";
     }
 
     @RequestMapping(value = "/queryParam" , method = RequestMethod.POST)
