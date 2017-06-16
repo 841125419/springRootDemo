@@ -6,8 +6,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/java/com/hand/hmall/controller/HmallTableColumnController.java" line="31" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="259f4932-1422-452a-8e07-adf4aa0e1ed5" name="Default" comment="查询功能完成&#10;添加 分页，过滤，列菜单，查询（模版文件版定view）">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/hand/hmall/util/PageUtil.java" />
+    <list default="true" id="259f4932-1422-452a-8e07-adf4aa0e1ed5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="hmall-web.iws" />
@@ -996,11 +995,18 @@
       <option name="project" value="LOCAL" />
       <updated>1497498114329</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="凄凄切切">
+      <created>1497597367564</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1497597367564</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="189656000" />
+    <option name="totallyTimeSpent" value="189672000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1131,7 +1137,8 @@
     <MESSAGE value="新建功能完成" />
     <MESSAGE value="查询功能进行中" />
     <MESSAGE value="查询功能完成&#10;添加 分页，过滤，列菜单，查询（模版文件版定view）" />
-    <option name="LAST_COMMIT_MESSAGE" value="查询功能完成&#10;添加 分页，过滤，列菜单，查询（模版文件版定view）" />
+    <MESSAGE value="凄凄切切" />
+    <option name="LAST_COMMIT_MESSAGE" value="凄凄切切" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
