@@ -5,6 +5,7 @@ package com.hand.hmall.controller;/**
 import com.hand.hmall.dto.Test;
 import com.hand.hmall.dto.common.PageDto;
 import com.hand.hmall.service.ITestService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.http.HttpRequest;
@@ -30,7 +31,7 @@ public class TestController {
 
     @RequestMapping(value="/test",method = RequestMethod.GET)
     @ResponseBody
-    public PageDto queryAll(Map<String, Object> map){
+    public PageDto queryAll( Map<String, Object> map){
         List<Map<String,Object>> list = testService.selectAll();
 
         PageDto pageDto = testService.queryPage(map);

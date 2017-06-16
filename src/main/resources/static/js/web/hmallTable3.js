@@ -56,12 +56,12 @@ var viewModel = kendo.observable({
 var mainDataSource = new kendo.data.DataSource({
     transport: {
         read: {
-            url: "/hmallTable/queryParam",
+            url: baseUrlPath+"/hmallTable/queryParam",
             type: "POST",
             dataType: "json"
         },
         update: {
-            url: "/hmallTable/update",
+            url: baseUrlPath+"/hmallTable/update",
             type: "POST",
             dataType: "json",
             complete: function(e) {
@@ -69,7 +69,7 @@ var mainDataSource = new kendo.data.DataSource({
             }
         },
         destroy: {
-            url: "/hmallTable/delete",
+            url: baseUrlPath+"/hmallTable/delete",
             type: "POST",
             dataType: "json",
             complete: function(e) {
@@ -77,7 +77,7 @@ var mainDataSource = new kendo.data.DataSource({
             }
         },
         create: {
-            url: "/hmallTable/create",
+            url: baseUrlPath+"/hmallTable/create",
             type: "POST",
             dataType: "json",
             complete: function(e) {
@@ -175,12 +175,12 @@ function detailInit(e) {
     var subDataSource = new kendo.data.DataSource({
         transport: {
             read: {
-                url: "/hmallTableColumn/query",
+                url: baseUrlPath+"/hmallTableColumn/query",
                 type: "POST",
                 dataType: "json"
             },
             update: {
-                url: "/hmallTableColumn/update",
+                url: baseUrlPath+"/hmallTableColumn/update",
                 type: "POST",
                 dataType: "json",
                 complete: function(e) {
@@ -188,7 +188,7 @@ function detailInit(e) {
                 }
             },
             destroy: {
-                url: "/hmallTableColumn/delete",
+                url: baseUrlPath+"/hmallTableColumn/delete",
                 type: "POST",
                 dataType: "json",
                 complete: function(e) {
@@ -196,7 +196,7 @@ function detailInit(e) {
                 }
             },
             create: {
-                url: "/hmallTableColumn/create",
+                url: baseUrlPath+"/hmallTableColumn/create",
                 type: "POST",
                 dataType: "json",
                 complete: function(e) {
@@ -271,4 +271,3 @@ function detailInit(e) {
 
 //绑定查询框
 kendo.bind($('#oper-form'), viewModel);
-

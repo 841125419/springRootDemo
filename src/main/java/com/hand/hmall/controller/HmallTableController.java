@@ -10,8 +10,10 @@ import com.hand.hmall.service.IHmallTableService;
 import com.hand.hmall.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +50,8 @@ public class HmallTableController {
     }
 
     @RequestMapping(value = "/hmallTable" , method = RequestMethod.GET)
-    public String hmallTable(){
+    public String hmallTable(HttpServletRequest request, ModelMap map){
+        map.addAttribute("baseUrlPath",request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/");
         return "hmallTable2";
     }
 

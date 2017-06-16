@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Index
  *
@@ -16,8 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class IndexController {
     @RequestMapping(value = "/")
-    public String index(ModelMap map){
-        map.addAttribute("host","www.jianshu.com");
+    public String index(HttpServletRequest request, ModelMap map){
+//        System.out.println(request.getContextPath());
+//        String path = request.getContextPath();
+//        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+//        String remoteAddress=request.getRemoteAddr();
+//        String servletPath=request.getServletPath();
+//        String realPath=request.getRealPath("/");
+//        String remoteUser=request.getRemoteUser();
+//        String requestURI=request.getRequestURI();
+        map.addAttribute("baseUrlPath",request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/");
         return "index";
     }
 }

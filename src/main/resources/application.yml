@@ -1,5 +1,5 @@
 server:
-    contextPath: /
+    contextPath: /hmall-web
     port: 8083
 ########################################################
 ###THYMELEAF (ThymeleafAutoConfiguration)
